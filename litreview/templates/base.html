@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>LITReview</title>
 </head>
+<header>
+    <nav>
+
+        {% if user.is_authenticated %}
+            <p>Bonjour
+                {{ user.username }} - <a href="{% url 'logout' %}">Se
+                    déconnecter</a></p>
+            <p>Mes abonnements</p>
+            <p>Ceux que je suis</p>
+        {% endif %}
+
+    </nav>
+</header>
 <body>
 
     {% block content %}
