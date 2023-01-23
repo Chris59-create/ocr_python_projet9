@@ -8,10 +8,13 @@
     <nav>
 
         {% if user.is_authenticated %}
-            <p>Bonjour
-                {{ user.username }} - <a href="{% url 'logout' %}">Se
-                    déconnecter</a></p>
-            <p>Mes abonnements</p>
+            <p>
+                Bonjour {{ user.username }} -
+                <a href="{% url 'authentication:logout' %}">Se déconnecter</a>
+            </p>
+            <p>
+                <a href="{% url 'authentication:follows' %}">Mes abonnements</a>
+            </p>
             <p>Ceux que je suis</p>
         {% endif %}
 

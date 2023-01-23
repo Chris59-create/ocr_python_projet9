@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 
 from . import forms
@@ -22,7 +22,8 @@ def login_page(request):
             if user is not None:
                 login(request, user)
                 message = f'Bonjour, {user.username}! Vous êtes connecté.'
-                return redirect("home")
+                # to check with the template Home
+                return redirect("feed:home")
             else:
                 message = 'Identifiants invalides.'
 
@@ -31,6 +32,13 @@ def login_page(request):
         'authentication/login.html',
         context={'form': form, 'message': message}
     )
+
+
+def logout_view(request):
+
+    logout(request)
+
+    return redirect("authentication:login")
 
 
 def signup_page(request):
@@ -51,4 +59,20 @@ def signup_page(request):
                   )
 
 
+def follows(request):
 
+    form = forms.UserFollowsForm()
+
+    if request.method == "POST":
+        form = forms.UserFollowsForm(request.POST)
+        form.cleaned_data["user"] = request.user
+
+        if form.is_valid():
+
+            form.save()
+            return redirect("feed:home")
+
+    return render(request,
+                  "authentication/follows.html",
+                  locals()
+                  )
