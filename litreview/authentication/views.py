@@ -62,7 +62,6 @@ def signup_page(request):
 
 def follows(request):
 
-    form = forms.UserFollowsForm()
     message = ""
 
     if request.method == "POST":
@@ -71,25 +70,29 @@ def follows(request):
         if form.is_valid():
 
             followed_name = form.cleaned_data["followed_name"]
-            usernames = User.objects.filter(username=followed_name)
 
-            if usernames:
+            try:
+                followed_user = User.objects.filter(username=followed_name)[0]
+                user = request.user
+                user.followed_members.add(followed_user.id)
 
-                followed_id = User.objects.get(username=followed_name).id
+                message = f"{followed_user.username} ajouté à vos suivis !"
+                form = forms.UserFollowsForm()
 
-                new_userfollows = UserFollows(request.user.id, followed_id)
+                return render(request,
+                              "authentication/follows.html",
+                              {"form": form, "message": message}
+                              )
 
-                new_userfollows.save()
-
-                message = f"{followed_id} ajouté à vos suivis !"
-
-                # return redirect("authentication:follows", message)
-
-            else:
+            except IndexError:
 
                 message = "Pas de membre avec cet identifiant"
+                form = forms.UserFollowsForm()
 
-                # return redirect("authentication:follows", message)
+                return render(request,
+                              "authentication/follows.html",
+                              {"form": form, "message": message}
+                              )
 
     return render(request,
                   "authentication/follows.html",
