@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
+from authentication.models import User, UserFollows
 
 from . import forms
 
@@ -62,17 +63,35 @@ def signup_page(request):
 def follows(request):
 
     form = forms.UserFollowsForm()
+    message = ""
 
     if request.method == "POST":
         form = forms.UserFollowsForm(request.POST)
-        form.cleaned_data["user"] = request.user
 
         if form.is_valid():
 
-            form.save()
-            return redirect("feed:home")
+            followed_name = form.cleaned_data["followed_name"]
+            usernames = User.objects.filter(username=followed_name)
+
+            if usernames:
+
+                followed_id = User.objects.get(username=followed_name).id
+
+                new_userfollows = UserFollows(request.user.id, followed_id)
+
+                new_userfollows.save()
+
+                message = f"{followed_id} ajouté à vos suivis !"
+
+                # return redirect("authentication:follows", message)
+
+            else:
+
+                message = "Pas de membre avec cet identifiant"
+
+                # return redirect("authentication:follows", message)
 
     return render(request,
                   "authentication/follows.html",
-                  locals()
+                  {"form": form, "message": message}
                   )

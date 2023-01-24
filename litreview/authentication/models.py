@@ -7,15 +7,25 @@ class User(AbstractUser):
 
     SUBSCRIBER = "Membre"
 
+    followed_members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through="UserFollows",
+        related_name="followed"
+    )
+
 
 class UserFollows(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE,
-                             related_name="following")
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="following"
+    )
 
-    followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
-                                      on_delete=models.CASCADE,
-                                      related_name="following_by")
+    followed_user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="following_by"
+    )
 
     class Meta:
         unique_together = ["user", "followed_user"]

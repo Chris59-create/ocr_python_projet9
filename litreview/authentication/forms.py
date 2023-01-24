@@ -20,4 +20,7 @@ class LoginForm(forms.Form):
 
 
 class UserFollowsForm(forms.Form):
-    pass
+    followed_name = forms.CharField(
+        max_length=150,
+        label="Identifiant du membre à suivre",
+    )
