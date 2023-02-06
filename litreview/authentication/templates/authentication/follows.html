@@ -2,14 +2,42 @@
 
 {% block content %}
 
-<p>{{ message }}</p>
+    <p>Message : {{ message }}</p>
 
-<h2>Suivre d'autres membres</h2>
+    <h2>Suivre d'autres membres</h2>
 
-<form method="post">
-  {{ form.as_p }}
-  {% csrf_token %}
-  <button type="submit">Envoyer</button>
-</form>
+    <form method="post">
+        {{ add_followed_form.as_p }}
+        {% csrf_token %}
+      <button type="submit">S'abonner</button>
+    </form>
+
+    <h2>Abonnements</h2>
+
+    <table>
+        {% for member in followed %}
+            <tr>
+                <td>
+                    {{ member }}
+                </td>
+                <td>
+                    <a href="{% url 'authentication:clear_followed'
+                     followed_id=member.id %}">Se désabonner</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    <h2>Abonnés</h2>
+
+    <table>
+        {% for member in followers %}
+            <tr>
+                <td>{{ member.user }}</td>
+            </tr>
+        {% endfor %}
+</table>
+
 
 {% endblock content %}

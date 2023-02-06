@@ -4,5 +4,5 @@ from feed import views
 app_name = "feed"
 
 urlpatterns = [
-    path("home", views.home_page, name="home"),
+    path("home/", views.home_page, name="home"),
 ]

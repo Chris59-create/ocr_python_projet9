@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from authentication.models import UserFollows
 from django import forms
+
+from . import models
 
 
 class SignupForm(UserCreationForm):
@@ -19,8 +20,13 @@ class LoginForm(forms.Form):
                                label="Mot de passe")
 
 
-class UserFollowsForm(forms.Form):
+class AddFollowedForm(forms.Form):
+    add_followed = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     followed_name = forms.CharField(
         max_length=150,
         label="Identifiant du membre à suivre",
     )
+
+
+"""class ClearFollowedForm(forms.Form):
+    clear_followed = forms.BooleanField(widget=forms.HiddenInput, initial=True)"""

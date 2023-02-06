@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from authentication.models import User, UserFollows
+from django.db.models import Q
 
-from . import forms
+from . import forms, models
 
 
 def login_page(request):
@@ -22,19 +24,20 @@ def login_page(request):
 
             if user is not None:
                 login(request, user)
-                message = f'Bonjour, {user.username}! Vous êtes connecté.'
-                # to check with the template Home
                 return redirect("feed:home")
+
             else:
-                message = 'Identifiants invalides.'
+                message = "Identifiant ou mot de passe invalides !"
+                form = forms.LoginForm()
 
     return render(
         request,
         'authentication/login.html',
         context={'form': form, 'message': message}
-    )
+        )
 
 
+@login_required
 def logout_view(request):
 
     logout(request)
@@ -60,41 +63,58 @@ def signup_page(request):
                   )
 
 
+@login_required
 def follows(request):
+
+    add_followed_form = forms.AddFollowedForm()
+
+    followed = request.user.followed_members.all()
+    followers = request.user.following_by.all().order_by('user')
 
     message = ""
 
     if request.method == "POST":
-        form = forms.UserFollowsForm(request.POST)
 
-        if form.is_valid():
+        if "add_followed" in request.POST:
+            add_followed_form = forms.AddFollowedForm(request.POST)
 
-            followed_name = form.cleaned_data["followed_name"]
+            if add_followed_form.is_valid():
 
-            try:
-                followed_user = User.objects.filter(username=followed_name)[0]
-                user = request.user
-                user.followed_members.add(followed_user.id)
+                followed_name = add_followed_form.cleaned_data["followed_name"]
 
-                message = f"{followed_user.username} ajouté à vos suivis !"
-                form = forms.UserFollowsForm()
+                try:
+                    followed_user = User.objects.get(username=followed_name)
+                    user = request.user
+                    user.followed_members.add(followed_user.id)
 
-                return render(request,
-                              "authentication/follows.html",
-                              {"form": form, "message": message}
-                              )
+                    message = f"{followed_user.username} ajouté à vos suivis !"
 
-            except IndexError:
+                    add_followed_form = forms.AddFollowedForm()
 
-                message = "Pas de membre avec cet identifiant"
-                form = forms.UserFollowsForm()
+                    return redirect("authentication:follows")
 
-                return render(request,
-                              "authentication/follows.html",
-                              {"form": form, "message": message}
-                              )
+                except IndexError:
 
-    return render(request,
-                  "authentication/follows.html",
-                  {"form": form, "message": message}
-                  )
+                    message = "Pas de membre avec cet identifiant"
+
+                    return redirect("authentication:follows")
+
+    context = {
+        "add_followed_form": add_followed_form,
+        "followed": followed,
+        "followers": followers,
+        "message": message
+    }
+
+    return render(
+        request,
+        "authentication/follows.html",
+        context=context
+    )
+
+
+def clear_followed(request, followed_id=None):
+    to_remove = get_object_or_404(User, pk=followed_id)
+    request.user.followed_members.remove(to_remove)
+
+    return redirect('authentication:follows')
