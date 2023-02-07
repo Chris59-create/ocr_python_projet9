@@ -17,7 +17,7 @@ def create_ticket(request):
     form = EditTicket()
 
     if request.method == 'POST':
-        form = EditTicket(request.POST)
+        form = EditTicket(request.POST, request.FILES)
 
         if form.is_valid():
 

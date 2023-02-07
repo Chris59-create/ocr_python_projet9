@@ -11,8 +11,6 @@
             <p>
                 Bonjour {{ user.username }} -
                 <a href="{% url 'authentication:logout' %}">Se déconnecter</a>
-            </p>
-            <p>
                 <a href="{% url 'authentication:follows' %}">Mes abonnements</a>
                 <a href="{% url 'feed:my-flow' %}">Mon flux</a>
             </p>

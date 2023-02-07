@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    <p>Message : {{ message }}</p>
+    <p>{{ message }}</p>
 
     <h2>Suivre d'autres membres</h2>
 
     <form method="post">
-        {{ add_followed_form.as_p }}
+        {{ add_followed_form }}
         {% csrf_token %}
       <button type="submit">S'abonner</button>
     </form>
