@@ -2,10 +2,9 @@ from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from authentication.models import User, UserFollows
-from django.db.models import Q
+from authentication.models import User
 
-from . import forms, models
+from . import forms
 
 
 def login_page(request):
@@ -91,13 +90,13 @@ def follows(request):
 
                     add_followed_form = forms.AddFollowedForm()
 
-                    return redirect("authentication:follows")
+                    # return redirect("authentication:follows")
 
                 except IndexError:
 
                     message = "Pas de membre avec cet identifiant"
 
-                    return redirect("authentication:follows")
+                    # return redirect("authentication:follows")
 
     context = {
         "add_followed_form": add_followed_form,
@@ -113,7 +112,8 @@ def follows(request):
     )
 
 
-def clear_followed(request, followed_id=None):
+@login_required
+def remove_followed(request, followed_id=None):
     to_remove = get_object_or_404(User, pk=followed_id)
     request.user.followed_members.remove(to_remove)
 

@@ -21,8 +21,8 @@
                     {{ member }}
                 </td>
                 <td>
-                    <a href="{% url 'authentication:clear_followed'
-                     followed_id=member.id %}">Se désabonner</a>
+                    <a
+                            href="{% url 'authentication:remove_followed' followed_id=member.id %}">Se désabonner</a>
                 </td>
             </tr>
         {% endfor %}
