@@ -4,7 +4,7 @@ from authentication.models import User
 from . import models
 
 
-class EditTicket(forms.ModelForm):
+class EditTicketForm(forms.ModelForm):
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']

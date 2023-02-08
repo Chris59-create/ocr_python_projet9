@@ -6,11 +6,34 @@
 
     <a href="{% url 'feed:ticket-create' %}">Demander une critique</a>
 
-    <ul>
-        {% for ticket in tickets %}
-        <li>{{ ticket.title }}</li>
+    <div>
+        <div>
+            {% for ticket in tickets %}
+                <div>
+                    <p>{{ ticket.user }}</p>
+                    <p>{{ ticket.time_created }}</p>
+                    <h3>{{ ticket.title }}</h3>
+                    <p>
+                        {% if ticket.image %}
+                            <img src="{{ ticket.image.url }}">
+                        {% endif %}
+                        {{ ticket.description }}
+                    </p>
+                </div>
+        </div>
+        <div>
+            <p>
+                <a href="{% url 'feed:ticket-update' ticket_id=ticket.id %}">
+                    Modifier</a>
+                <a href="{% url 'feed:ticket-delete' ticket_id=ticket.id %}">
+                    Supprimer</a>
+            </p>
+        </div>
+
+
+
         {% endfor %}
-    </ul>
+
 
 
 {% endblock content %}

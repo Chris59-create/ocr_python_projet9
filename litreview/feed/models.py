@@ -23,5 +23,8 @@ class Ticket(models.Model):
         image.save(self.image.path)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.resize_image()
+        if self.image:
+            super().save(*args, **kwargs)
+            self.resize_image()
+        else:
+            pass
