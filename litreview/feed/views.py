@@ -19,7 +19,7 @@ def get_users_viewable_tickets(user):
 
 def get_users_viewable_reviews(user):
     viewable_reviews = Review.objects.filter(
-        Q(user=user) | Q(user__in=user.followed_members.all()
+        Q(user=user) | Q(user__in=user.followed_members.all())
     )
 
     return viewable_reviews
