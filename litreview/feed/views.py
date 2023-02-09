@@ -3,20 +3,24 @@ from itertools import chain
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.db.models import CharField, Value
+from django.db.models import CharField, Value, Q
 
 from .models import Ticket, Review
 from .forms import EditTicketForm
 
 
 def get_users_viewable_tickets(user):
-    viewable_tickets = Ticket.objects.filter(user=user)
+    viewable_tickets = Ticket.objects.filter(
+        Q(user=user) | Q(user__in=user.followed_members.all())
+    )
 
     return viewable_tickets
 
 
 def get_users_viewable_reviews(user):
-    viewable_reviews = Review.objects.filter(user=user)
+    viewable_reviews = Review.objects.filter(
+        Q(user=user) | Q(user__in=user.followed_members.all()
+    )
 
     return viewable_reviews
 
