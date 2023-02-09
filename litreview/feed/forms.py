@@ -1,5 +1,4 @@
 from django import forms
-from authentication.models import User
 
 from . import models
 

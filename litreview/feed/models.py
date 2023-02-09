@@ -1,5 +1,7 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 
 
@@ -28,3 +30,20 @@ class Ticket(models.Model):
             self.resize_image()
         else:
             pass
+
+
+class Review(models.Model):
+    objects = models.Manager()
+
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(
+        max_length=1024,
+        validators=[MinValueValidator(0), MaxValueValidator(5)]
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    headline = models.CharField(max_length=128)
+    body = models.TextField(max_length=8192, blank=True)
+    time_created : models.DateTimeField(auto_now_add=True)
