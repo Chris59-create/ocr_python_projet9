@@ -23,7 +23,7 @@ def login_page(request):
 
             if user is not None:
                 login(request, user)
-                return redirect("feed:home")
+                return redirect("feed:my-flow")
 
             else:
                 message = "Identifiant ou mot de passe invalides !"

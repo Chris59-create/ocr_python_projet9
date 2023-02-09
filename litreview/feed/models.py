@@ -29,7 +29,7 @@ class Ticket(models.Model):
             super().save(*args, **kwargs)
             self.resize_image()
         else:
-            pass
+            super().save(*args, **kwargs)
 
 
 class Review(models.Model):
@@ -37,8 +37,7 @@ class Review(models.Model):
 
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(
-        max_length=1024,
-        validators=[MinValueValidator(0), MaxValueValidator(5)]
+       validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

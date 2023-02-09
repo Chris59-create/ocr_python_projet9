@@ -7,33 +7,13 @@
     <a href="{% url 'feed:ticket-create' %}">Demander une critique</a>
 
     <div>
-        <div>
-            {% for ticket in tickets %}
-                <div>
-                    <p>{{ ticket.user }}</p>
-                    <p>{{ ticket.time_created }}</p>
-                    <h3>{{ ticket.title }}</h3>
-                    <p>
-                        {% if ticket.image %}
-                            <img src="{{ ticket.image.url }}">
-                        {% endif %}
-                        {{ ticket.description }}
-                    </p>
-                </div>
-        </div>
-        <div>
-            <p>
-                <a href="{% url 'feed:ticket-update' ticket_id=ticket.id %}">
-                    Modifier</a>
-                <a href="{% url 'feed:ticket-delete' ticket_id=ticket.id %}">
-                    Supprimer</a>
-            </p>
-        </div>
-
-
-
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
+                {% include 'feed/ticket_detail.html' with ticket=post %}
+            {% elif post.content_type == 'REVIEW' %}
+                {% include 'feed/review_detail.html' %}
+            {% endif %}
         {% endfor %}
-
-
+    </div>
 
 {% endblock content %}

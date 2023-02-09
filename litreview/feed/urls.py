@@ -5,7 +5,6 @@ app_name = "feed"
 
 urlpatterns = [
     path('flow', views.flow, name='my-flow'),
-    path("home/", views.home_page, name="home"),
     path('ticket/create/', views.create_ticket, name="ticket-create"),
     path('tickets/<int:ticket_id>/update/', views.update_ticket,
          name='ticket-update'),

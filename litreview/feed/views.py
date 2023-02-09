@@ -1,22 +1,42 @@
-from django.conf import settings
-from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from itertools import chain
 
-from .models import Ticket
+from django.conf import settings
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.db.models import CharField, Value
+
+from .models import Ticket, Review
 from .forms import EditTicketForm
 
 
+def get_users_viewable_tickets(user):
+    viewable_tickets = Ticket.objects.filter(user=user)
 
-@login_required
-def home_page(request):
-    return render(request, "feed/home.html")
+    return viewable_tickets
+
+
+def get_users_viewable_reviews(user):
+    viewable_reviews = Review.objects.filter(user=user)
+
+    return viewable_reviews
 
 
 @login_required
 def flow(request):
-    tickets = Ticket.objects.all()
 
-    return render(request, 'feed/flow.html', {'tickets': tickets})
+    tickets = get_users_viewable_tickets(request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    reviews = get_users_viewable_reviews(request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+
+    return render(request, 'feed/flow.html', context={'posts': posts})
 
 
 @login_required
