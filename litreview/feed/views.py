@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import CharField, Value, Q
 
 from .models import Ticket, Review
-from .forms import EditTicketForm
+from .forms import EditTicketForm, EditReviewForm
 
 
 def get_users_viewable_tickets(user):
@@ -87,6 +87,29 @@ def delete_ticket(request, ticket_id):
         return redirect('feed:my-flow')
 
     return render(request, 'feed/ticket_delete.html', {'ticket': ticket})
+
+
+@login_required
+def create_review(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    print('ticket_id', ticket_id)
+    form = EditReviewForm()
+
+    if request.method == 'POST':
+        form = EditReviewForm(request.POST)
+
+        if form.is_valid():
+
+            review = form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+
+            return redirect('feed:my-flow')
+
+    context = {'form': form, 'ticket': ticket}
+
+    return render(request, 'feed/review_create.html', context=context)
 
 
 

@@ -9,9 +9,14 @@
     <div>
         {% for post in posts %}
             {% if post.content_type == 'TICKET' %}
+
                 {% include 'feed/ticket_detail.html' with ticket=post %}
+                    <p>
+                        <a href="{% url 'feed:review-create' ticket_id=post.id %}">
+                            Créer une critique</a>
+                    </p>
             {% elif post.content_type == 'REVIEW' %}
-                {% include 'feed/review_detail.html' %}
+                {% include 'feed/review_detail.html' with review=post %}
             {% endif %}
         {% endfor %}
     </div>

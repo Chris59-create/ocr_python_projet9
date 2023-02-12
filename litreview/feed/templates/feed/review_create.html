@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+    <h1>Créer une critique</h1>
+
+    <p>Vous êtes en train de publier une réponse à</p>
+    {% include 'feed/ticket_detail.html' with ticket=ticket %}
+
+    <form action ="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Envoyer">
+    </form>
+
+{% endblock content %}
