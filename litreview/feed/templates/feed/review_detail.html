@@ -2,5 +2,19 @@
 
 {% block content %}
 
+    <div>
+        <p>{{ review.user }} a publié une critique</p>
+        <p>{{ review.time_created }}</p>
+        <p>
+            {{ review.headline }}
+            {{ review.rating }}
+        </p>
+        <p>{{ review.body }}</p>
+    </div>
+
+    <div>
+        {% include 'feed/ticket_detail.html' with ticket=review.ticket %}
+    </div>
+
 
 {% endblock content %}
