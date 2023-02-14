@@ -112,5 +112,30 @@ def create_review(request, ticket_id):
     return render(request, 'feed/review_create.html', context=context)
 
 
+@login_required
+def create_review_directly(request):
+    edit_ticket_form = EditTicketForm(prefix='ticket_form')
+    edit_review_form = EditReviewForm(prefix='review_form')
+
+    if request.method == 'POST':
+
+        edit_ticket_form = EditTicketForm(request.POST, prefix='ticket_form')
+        edit_review_form = EditReviewForm(request.POST, prefix='review_form')
+
+        if edit_review_form.is_valid() and edit_ticket_form.is_valid():
+
+            ticket = edit_ticket_form.save()
+            review = edit_review_form.save(commit=False)
+            review.ticket = ticket
+            review.save()
+
+    context = {
+        'edit_ticket_form': edit_ticket_form,
+        'edit_review_form': edit_review_form
+    }
+
+    return render(request, 'feed/review_direct_create.html', context=context)
+
+
 
 
