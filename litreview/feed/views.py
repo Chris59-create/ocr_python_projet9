@@ -114,19 +114,24 @@ def create_review(request, ticket_id):
 
 @login_required
 def create_review_directly(request):
-    edit_ticket_form = EditTicketForm(prefix='ticket_form')
-    edit_review_form = EditReviewForm(prefix='review_form')
+    edit_ticket_form = EditTicketForm()
+    edit_review_form = EditReviewForm()
 
     if request.method == 'POST':
 
-        edit_ticket_form = EditTicketForm(request.POST, prefix='ticket_form')
-        edit_review_form = EditReviewForm(request.POST, prefix='review_form')
+        edit_ticket_form = EditTicketForm(
+            request.POST, request.FILES
+        )
+        edit_review_form = EditReviewForm(request.POST)
 
         if edit_review_form.is_valid() and edit_ticket_form.is_valid():
 
-            ticket = edit_ticket_form.save()
+            ticket = edit_ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
             review = edit_review_form.save(commit=False)
             review.ticket = ticket
+            review.user = request.user
             review.save()
 
     context = {

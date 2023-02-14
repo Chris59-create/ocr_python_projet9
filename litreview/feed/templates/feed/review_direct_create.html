@@ -4,12 +4,12 @@
 
     <h1>Créer une critique</h1>
 
-    <form action ="" method="post">
+    <form action ="" method="post" enctype="multipart/form-data">
+
+        {{ edit_ticket_form.as_p}}
+        {{ edit_review_form.as_p}}
         {% csrf_token %}
-        {{ edit_ticket_form.as_p }}
-        {{ edit_review_form.as_p }}
         <input type="submit" value="Envoyer">
     </form>
-
 
 {% endblock content %}
