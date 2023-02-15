@@ -4,16 +4,33 @@
 
     <h1>Mes publications</h1>
 
-    <div>
-    <p>
-        {% if ticket.user == request.user %}
-            <a href="{% url 'feed:ticket-update' ticket_id=ticket.id %}">
-                Modifier</a>
-            <a href="{% url 'feed:ticket-delete' ticket_id=ticket.id %}">
-                Supprimer</a>
-        {% endif %}
+        <div>
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
 
-    </p>
+                {% include 'feed/ticket_detail.html' with ticket=post %}
+
+                <a href="{% url 'feed:ticket-update' ticket_id=post.id %}">
+                    Modifier</a>
+                <a href="{% url 'feed:ticket-delete' ticket_id=post.id %}">
+                    Supprimer</a>
+            
+            {% elif post.content_type == 'REVIEW' %}
+
+                {% include 'feed/review_detail.html' with review=post %}
+            
+                <a href="{% url 'feed:review-update' review_id=post.id %}">
+                    Modifier</a>
+                <a href="{% url 'feed:review-delete' review_id=post.id %}">
+                    Supprimer</a>
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+    <div>
+
 </div>
 
 

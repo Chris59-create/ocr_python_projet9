@@ -2,17 +2,18 @@
 
 {% block content %}
 
-    <h1>Supprimer le ticket</h1>
+    <h1>Supprimer la critique</h1>
 
-    <p>Êtes-vous certain de vouloir supprimer le ticket suivant ? </p>
+    <p>Êtes-vous certain de vouloir supprimer la critique suivante ? </p>
     <p>
-        {{ ticket.title }}
-        publié le {{ ticket.time_created }}
+        {{ review.title }}
+        publié le {{ review.time_created }}
     </p>
 
     <form action="" method="post">
         {% csrf_token %}
         <input type="submit" value="Supprimer">
     </form>
+
 
 {% endblock content %}

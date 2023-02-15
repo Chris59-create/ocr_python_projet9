@@ -2,10 +2,11 @@
 
 {% block content %}
 
-    <h1>Modifier votre ticket </h1>
-    <h3>{{ ticket.title }}</h3>
+    <h1>Modifier votre critique </h1>
+    <h3>{{ review.title }}</h3>
 
     <form action="" method="post">
+
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Envoyer">

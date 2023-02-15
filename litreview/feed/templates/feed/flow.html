@@ -5,7 +5,8 @@
     <h1>Mon flux</h1>
 
     <a href="{% url 'feed:ticket-create' %}">Demander une critique</a>
-    <a href="{% url 'feed:review_direct_create' %}">Créer directement une critique</a>
+    <a href="{% url 'feed:review-direct-create' %}">Créer directement une
+        critique</a>
 
     <div>
         {% for post in posts %}

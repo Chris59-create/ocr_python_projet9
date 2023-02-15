@@ -14,5 +14,5 @@ def get_user_display(context, user):
 
     if user == context['user']:
         return "Vous avez"
-    return user.username
 
+    return f"{user.username} a"

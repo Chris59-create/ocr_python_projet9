@@ -92,7 +92,7 @@ def delete_ticket(request, ticket_id):
 @login_required
 def create_review(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
-    print('ticket_id', ticket_id)
+    
     form = EditReviewForm()
 
     if request.method == 'POST':
@@ -142,5 +142,52 @@ def create_review_directly(request):
     return render(request, 'feed/review_direct_create.html', context=context)
 
 
+@login_required
+def update_review(request, review_id):
+    review = Review.objects.get(id=review_id)
+    
+    form = EditReviewForm(instance=review)
+    
+    if request.method == 'POST':
+        form = EditTicketForm(request.POST, instance=review)
 
+        if form.is_valid():
+            form.save()
 
+            return redirect('feed:my-posts')
+
+    return render(request, 'feed/review_update.html', {'form': form})
+
+        
+@login_required
+def delete_review(request, review_id):
+    review = Ticket.objects.get(id=review_id)
+
+    if request.method == 'POST':
+        review.delete()
+
+        return redirect('feed:my-posts')
+
+    return render(request, 'feed/review_delete.html', {'review': review})
+    
+
+@login_required
+def display_my_posts(request):
+
+    tickets = Ticket.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    print('posts_tickets', tickets)
+
+    reviews = Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    print('posts_reviews', reviews)
+
+    posts = sorted(
+        chain(tickets, reviews),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+
+    print('posts', posts)
+
+    return render(request, 'feed/posts.html', context={'posts': posts})

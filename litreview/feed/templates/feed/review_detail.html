@@ -1,7 +1,9 @@
+{% load feed_extras %}
+
 {% block content %}
 
     <div>
-        <p>{{ review.user }} a publié une critique</p>
+        <p>{% get_user_display user=review.user %} publié une critique</p>
         <p>{{ review.time_created }}</p>
         <p>
             {{ review.headline }}
