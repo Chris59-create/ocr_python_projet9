@@ -3,7 +3,10 @@
 {% block content %}
 
     <h1>Modifier votre critique </h1>
-    <h3>{{ review.title }}</h3>
+
+    <p>Vous êtes en train de publier une réponse à :</p>
+
+       {% include 'feed/ticket_detail.html' with ticket=ticket %}
 
     <form action="" method="post">
 

@@ -72,7 +72,7 @@ def update_ticket(request, ticket_id):
         if form.is_valid():
             form.save()
 
-            return redirect('feed:my-flow')
+            return redirect('feed:my-posts')
 
     return render(request, 'feed/ticket_update.html', {'form': form})
 
@@ -84,7 +84,7 @@ def delete_ticket(request, ticket_id):
     if request.method == 'POST':
         ticket.delete()
 
-        return redirect('feed:my-flow')
+        return redirect('feed:my-posts')
 
     return render(request, 'feed/ticket_delete.html', {'ticket': ticket})
 
@@ -145,23 +145,27 @@ def create_review_directly(request):
 @login_required
 def update_review(request, review_id):
     review = Review.objects.get(id=review_id)
+    ticket = review.ticket
     
     form = EditReviewForm(instance=review)
     
     if request.method == 'POST':
-        form = EditTicketForm(request.POST, instance=review)
+        form = EditReviewForm(request.POST, instance=review)
 
         if form.is_valid():
-            form.save()
 
-            return redirect('feed:my-posts')
+            review.save()
 
-    return render(request, 'feed/review_update.html', {'form': form})
+        return redirect('feed:my-flow')
+
+    context = {'form': form, 'ticket': ticket}
+
+    return render(request, 'feed/review_update.html', context=context)
 
         
 @login_required
 def delete_review(request, review_id):
-    review = Ticket.objects.get(id=review_id)
+    review = Review.objects.get(id=review_id)
 
     if request.method == 'POST':
         review.delete()
@@ -176,18 +180,14 @@ def display_my_posts(request):
 
     tickets = Ticket.objects.filter(user=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-    print('posts_tickets', tickets)
 
     reviews = Review.objects.filter(user=request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    print('posts_reviews', reviews)
 
     posts = sorted(
         chain(tickets, reviews),
         key=lambda post: post.time_created,
         reverse=True
     )
-
-    print('posts', posts)
 
     return render(request, 'feed/posts.html', context={'posts': posts})
