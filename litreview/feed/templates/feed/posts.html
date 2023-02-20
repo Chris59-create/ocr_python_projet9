@@ -14,6 +14,18 @@
                     Modifier</a>
                 <a href="{% url 'feed:ticket-delete' ticket_id=post.id %}">
                     Supprimer</a>
+
+                {% if not post.ticket_review %}
+
+                    <a href="{% url 'feed:review-create' ticket_id=post.id %}">
+                                Créer une critique</a>
+
+                {% else %}
+
+                    <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
+                                    Voir la réponse à cette demande</a>
+
+                {% endif %}
             
             {% elif post.content_type == 'REVIEW' %}
 
