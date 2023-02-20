@@ -22,7 +22,8 @@
 
                     {% else %}
                             <p>
-                                Critique existante pour ce ticket
+                                <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
+                                    Critique existante pour ce ticket</a>
                             </p>
 
                     {% endif %}

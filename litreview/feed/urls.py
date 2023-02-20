@@ -14,6 +14,8 @@ urlpatterns = [
          name='review-create'),
     path('review/create_direct', views.create_review_directly,
          name='review-direct-create'),
+    path('reviews/<int:review_id>/display', views.display_review,
+         name='review-display'),
     path('reviews/<int:review_id>/update/', views.update_review,
          name='review-update'),
     path('reviews/<int:review_id>/delete/', views.delete_review,
