@@ -1,8 +1,16 @@
 {% load feed_extras %}
 
-<div>
-    <p>{% get_user_display user=ticket.user %} demandé une critique</p>
-    <p>{{ ticket.time_created }}</p>
+<div class="p-3">
+    <div class="row">
+        <div class="col text-start">
+            <p>{% get_user_display user=ticket.user %} demandé une critique</p>
+        </div>
+        <div class="col text-end">
+            <p>{{ ticket.time_created }}</p>
+        </div>
+    </div>
+
+
     <h3>{{ ticket.title }}</h3>
     <p>
         {% if ticket.image %}

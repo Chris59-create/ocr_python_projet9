@@ -2,40 +2,58 @@
 
 {% block content %}
 
-    <h1>Mon flux</h1>
-
-    <a href="{% url 'feed:ticket-create' %}">Demander une critique</a>
-    <a href="{% url 'feed:review-direct-create' %}">Créer directement une
-        critique</a>
+    <h1 class="text-center">Mon flux</h1>
 
     <div>
+        <div class="row">
+            <div class="col-6 text-center">
+                <a class="btn btn-outline-dark"
+                   href="{% url 'feed:ticket-create' %}">Demander
+                une
+                    critique</a>
+            </div>
+            <div class="col-6 text-center">
+                <a class="btn btn-outline-dark" href="{% url
+                'feed:review-direct-create' %}">Créer directement une critique</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="my-5">
+
         {% for post in posts %}
-            {% if post.content_type == 'TICKET' %}
 
-                {% include 'feed/ticket_detail.html' with ticket=post %}
+            <div class="border border-dark my-5">
+                {% if post.content_type == 'TICKET' %}
 
-                    {% if not post.ticket_review %}
-                        <p>
-                            <a href="{% url 'feed:review-create' ticket_id=post.id %}">
-                                Créer une critique</a>
-                        </p>
+                    {% include 'feed/ticket_detail.html' with ticket=post %}
 
-                    {% else %}
-                            <p>
-                                <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
-                                    Voir la réponse à cette demande</a>
+                        {% if not post.ticket_review %}
+                            <p class="text-center">
+                                <a href="{% url 'feed:review-create' ticket_id=post.id %}">
+                                    Créer une critique</a>
                             </p>
 
-                    {% endif %}
+                        {% else %}
+                                <p class="text-center">
+                                    <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
+                                        Voir la réponse à cette demande</a>
+                                </p>
 
+                        {% endif %}
 
-            {% elif post.content_type == 'REVIEW' %}
+                {% elif post.content_type == 'REVIEW' %}
 
-                {% include 'feed/review_detail.html' with review=post %}
+                    {% include 'feed/review_detail.html' with review=post %}
 
-            {% endif %}
+                {% endif %}
+
+            </div>
 
         {% endfor %}
+
     </div>
 
 {% endblock content %}

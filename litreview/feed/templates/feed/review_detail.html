@@ -2,18 +2,21 @@
 
 {% block content %}
 
-    <div>
-        <p>{% get_user_display user=review.user %} publié une critique</p>
-        <p>{{ review.time_created }}</p>
-        <p>
-            {{ review.headline }}
-            {{ review.rating }}
-        </p>
+    <div class="p-3">
+        <div class="row">
+        <div class="col text-start">
+            <p>{% get_user_display user=review.user %} publié une critique</p>
+        </div>
+        <div class="col text-end">
+            <p>{{ review.time_created }}</p>
+        </div>
         <p>{{ review.body }}</p>
-    </div>
 
-    <div>
-        {% include 'feed/ticket_detail.html' with ticket=review.ticket %}
+
+        <div class="border border-dark">
+            {% include 'feed/ticket_detail.html' with ticket=review.ticket %}
+        </div>
+
     </div>
 
 

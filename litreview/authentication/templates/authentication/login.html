@@ -7,9 +7,8 @@
         <div class="col-6 text-center">
             <h2>Pas encore membre ?</h2>
             <p>
-                <a class="btn btn-primary mt-3"
-                   href="{% url 'authentication:signup' %}">S'inscrire
-                    !</a>
+                <a class="btn btn-primary mt-5"
+                   href="{% url 'authentication:signup' %}">S'inscrire !</a>
             </p>
         </div>
         <div class="col-6 text-center">
@@ -20,8 +19,7 @@
 
                 {{ form|crispy }}
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Se
-                    connecter</button>
+                <button type="submit">Se connecter</button>
             </form>
         </div>
 
