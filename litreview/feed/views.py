@@ -143,6 +143,13 @@ def create_review_directly(request):
 
 
 @login_required
+def display_review(request, review_id):
+    review = Review.objects.get(id=review_id)
+
+    return render(request, 'feed/review_display.html', {'review': review})
+
+
+@login_required
 def update_review(request, review_id):
     review = Review.objects.get(id=review_id)
     ticket = review.ticket

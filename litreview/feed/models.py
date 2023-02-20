@@ -35,10 +35,11 @@ class Ticket(models.Model):
 class Review(models.Model):
     objects = models.Manager()
 
-    ticket = models.ForeignKey(
+    ticket = models.OneToOneField(
         Ticket,
         on_delete=models.CASCADE,
-        related_name='reviews'
+        related_name='ticket_review',
+        primary_key=False
     )
     rating = models.PositiveSmallIntegerField(
        validators=[MinValueValidator(0), MaxValueValidator(5)]
