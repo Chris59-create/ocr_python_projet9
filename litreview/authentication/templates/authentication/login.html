@@ -1,18 +1,33 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-    <h2>Connectez-vous</h2>
+    <div class="row">
+        <div class="col-6 text-center">
+            <h2>Pas encore membre ?</h2>
+            <p>
+                <a class="btn btn-primary mt-3"
+                   href="{% url 'authentication:signup' %}">S'inscrire
+                    !</a>
+            </p>
+        </div>
+        <div class="col-6 text-center">
+            <h2>Connectez-vous</h2>
 
-    <form method="post">
-        <p>{{ message }}</p>
+            <form method="post">
+                <p>{{ message }}</p>
 
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit">Se connecter</button>
-    </form>
-    <p>Pas encore membre ?
-        <a href="{% url 'authentication:signup' %}">S'inscrire !</a></p>
+                {{ form|crispy }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Se
+                    connecter</button>
+            </form>
+        </div>
+
+    </div>
+
+
 
 
 {% endblock content %}
