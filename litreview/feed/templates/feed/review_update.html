@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h1>Modifier votre critique </h1>
+    <h1 text="text-center">Modifier votre critique </h1>
 
     <p>Vous êtes en train de publier une réponse à :</p>
 
@@ -13,7 +13,7 @@
 
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer" class="btn btn-outline-dark">
 
     </form>
 

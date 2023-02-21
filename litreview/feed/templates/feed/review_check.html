@@ -1,11 +1,10 @@
 {% if not post.ticket_review %}
-    <p class="text-center">
-        <a class="btn btn-outline-dark" href="{% url 'feed:review-create' ticket_id=post.id %}">Créer une critique</a>
-    </p>
+
+    <a class="btn btn-outline-dark" href="{% url 'feed:review-create' ticket_id=post.id %}">Créer une critique</a>
+
 
 {% else %}
-        <p class="text-center">
-            <a class="btn btn-outline-dark" href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">Voir la réponse à cette demande</a>
-        </p>
+
+    <a class="btn btn-outline-dark" href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">Voir la réponse à cette demande</a>
 
 {% endif %}

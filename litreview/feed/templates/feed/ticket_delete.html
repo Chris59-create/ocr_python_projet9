@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>Supprimer le ticket</h1>
+    <h1 class="text-center">Supprimer le ticket</h1>
 
     <p>Êtes-vous certain de vouloir supprimer le ticket suivant ? </p>
     <p>
@@ -11,8 +11,12 @@
     </p>
 
     <form action="" method="post">
+
         {% csrf_token %}
-        <input type="submit" value="Supprimer">
+        <div class="text-content">
+            <input type="submit" value="Supprimer" class="btn btn-outline-dark">
+        </div>
+
     </form>
 
 {% endblock content %}

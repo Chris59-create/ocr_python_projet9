@@ -15,10 +15,11 @@
             <h2>Connectez-vous</h2>
 
             <form method="post">
-                <p>{{ message }}</p>
+
 
                 {{ form|crispy }}
                 {% csrf_token %}
+                <p class="bg-dark text-white text-center">{{ message }}</p>
                 <button type="submit" class="btn btn-outline-dark">Se connecter</button>
             </form>
         </div>

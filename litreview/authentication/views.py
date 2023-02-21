@@ -96,7 +96,7 @@ def follows(request):
 
                 except ObjectDoesNotExist:
 
-                    message = "Pas de membre avec cet identifiant"
+                    message = "Pas de membre avec cet identifiant !"
 
                     # return redirect("authentication:follows")
 
