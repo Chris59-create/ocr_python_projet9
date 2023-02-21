@@ -3,11 +3,10 @@
 
 {% block content %}
 
-
-
     <h1 class="text-center">Suivre d'autres membres</h1>
 
     <form method="post">
+
         {{ add_followed_form|crispy }}
         {% csrf_token %}
         <p class="bg-dark text-white text-center">{{ message }}</p>
@@ -53,11 +52,5 @@
         </div>
 
     </div>
-
-
-
-
-
-
 
 {% endblock content %}
