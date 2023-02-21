@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h2>Inscription</h2>
+    <h2 class="text-center">Inscription</h2>
 
     {% if form.errors %}
         {{ form.errors }}
@@ -12,10 +12,13 @@
     <form method="post">
         {{ form|crispy }}
         {% csrf_token %}
-        <button type="submit">S'inscrire</button>
+        <div class="text-center">
+             <button type="submit" class="btn btn-outline-dark">S'inscrire</button>
+        </div>
+
     </form>
 
     <p>Déjà inscrit ?
-        <a href="{% url 'authentication:login' %}">Se connecter</a></p>
+        <a class="btn btn-outline-dark" href="{% url 'authentication:login' %}">Se connecter</a></p>
 
 {% endblock content %}

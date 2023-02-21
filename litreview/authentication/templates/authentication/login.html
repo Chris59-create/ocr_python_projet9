@@ -3,11 +3,11 @@
 
 {% block content %}
 
-    <div class="row">
+    <div class="row d-flex align-items-center">
         <div class="col-6 text-center">
             <h2>Pas encore membre ?</h2>
             <p>
-                <a class="btn btn-primary mt-5"
+                <a class="btn btn-outline-dark mt-3"
                    href="{% url 'authentication:signup' %}">S'inscrire !</a>
             </p>
         </div>
@@ -19,7 +19,7 @@
 
                 {{ form|crispy }}
                 {% csrf_token %}
-                <button type="submit">Se connecter</button>
+                <button type="submit" class="btn btn-outline-dark">Se connecter</button>
             </form>
         </div>
 

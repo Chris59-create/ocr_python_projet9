@@ -3,14 +3,17 @@
 
 {% block content %}
 
-    <p>{{ message }}</p>
+    <p class="text-info">{{ message }}</p>
 
-    <h2>Suivre d'autres membres</h2>
+    <h1 class="text-center">Suivre d'autres membres</h1>
 
     <form method="post">
         {{ add_followed_form|crispy }}
         {% csrf_token %}
-      <button type="submit">S'abonner</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-dark">S'abonner</button>
+        </div>
+
     </form>
 
     <h2>Abonnements</h2>
@@ -22,8 +25,7 @@
                     {{ member }}
                 </td>
                 <td>
-                    <a
-                            href="{% url 'authentication:remove_followed' followed_id=member.id %}">Se désabonner</a>
+                    <a class="btn btn-outline-dark" href="{% url 'authentication:remove_followed' followed_id=member.id %}">Se désabonner</a>
                 </td>
             </tr>
         {% endfor %}

@@ -9,8 +9,7 @@
             <div class="col-6 text-center">
                 <a class="btn btn-outline-dark"
                    href="{% url 'feed:ticket-create' %}">Demander
-                une
-                    critique</a>
+                une critique</a>
             </div>
             <div class="col-6 text-center">
                 <a class="btn btn-outline-dark" href="{% url
@@ -25,24 +24,12 @@
 
         {% for post in posts %}
 
-            <div class="border border-dark my-5">
+            <div class="border border-dark m-3">
                 {% if post.content_type == 'TICKET' %}
 
                     {% include 'feed/ticket_detail.html' with ticket=post %}
 
-                        {% if not post.ticket_review %}
-                            <p class="text-center">
-                                <a href="{% url 'feed:review-create' ticket_id=post.id %}">
-                                    Créer une critique</a>
-                            </p>
-
-                        {% else %}
-                                <p class="text-center">
-                                    <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
-                                        Voir la réponse à cette demande</a>
-                                </p>
-
-                        {% endif %}
+                    {% include 'feed/review_check.html' with post=post %}
 
                 {% elif post.content_type == 'REVIEW' %}
 

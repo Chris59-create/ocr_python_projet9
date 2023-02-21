@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>Mes publications</h1>
+    <h1 class="text-center">Mes publications</h1>
 
         <div>
         {% for post in posts %}
@@ -10,30 +10,18 @@
 
                 {% include 'feed/ticket_detail.html' with ticket=post %}
 
-                <a href="{% url 'feed:ticket-update' ticket_id=post.id %}">
-                    Modifier</a>
-                <a href="{% url 'feed:ticket-delete' ticket_id=post.id %}">
-                    Supprimer</a>
+                <a class="btn btn-outline-dark" href="{% url 'feed:ticket-update' ticket_id=post.id %}">Modifier</a>
+                <a class="btn btn-outline-dark" href="{% url 'feed:ticket-delete' ticket_id=post.id %}">Supprimer</a>
 
-                {% if not post.ticket_review %}
-
-                    <a href="{% url 'feed:review-create' ticket_id=post.id %}">
-                                Créer une critique</a>
-
-                {% else %}
-
-                    <a href="{% url 'feed:review-display' review_id=post.ticket_review.id %}">
-                                    Voir la réponse à cette demande</a>
-
-                {% endif %}
+                {% include 'feed/review_check.html' with post=post %}
             
             {% elif post.content_type == 'REVIEW' %}
 
                 {% include 'feed/review_detail.html' with review=post %}
             
-                <a href="{% url 'feed:review-update' review_id=post.id %}">
+                <a class="btn btn-outline-dark" href="{% url 'feed:review-update' review_id=post.id %}">
                     Modifier</a>
-                <a href="{% url 'feed:review-delete' review_id=post.id %}">
+                <a class="btn btn-outline-dark" href="{% url 'feed:review-delete' review_id=post.id %}">
                     Supprimer</a>
 
             {% endif %}
