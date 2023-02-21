@@ -4,7 +4,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
-from traceback import print_exc  # to delete after fixing bug
 
 
 from . import forms
