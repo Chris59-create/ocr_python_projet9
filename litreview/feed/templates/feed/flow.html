@@ -16,26 +16,34 @@
         </div>
     </div>
 
-
-
-    <div class="my-5">
+    <div class="d-flex flex-column my-5">
 
         {% for post in posts %}
 
-            <div class="border border-dark m-3">
                 {% if post.content_type == 'TICKET' %}
 
-                    {% include 'feed/ticket_detail.html' with ticket=post %}
+                    <div
+                            class="align-self-end border border-dark mt-2 p-2 w-75">
 
-                    {% include 'feed/review_check.html' with post=post %}
+                        {% include 'feed/ticket_detail.html' with ticket=post %}
+
+                        <div class="text-end">
+
+                            {% include 'feed/review_check.html' with post=post %}
+
+                        </div>
+
+                    </div>
 
                 {% elif post.content_type == 'REVIEW' %}
 
-                    {% include 'feed/review_detail.html' with review=post %}
+                    <div class="border border-dark mt-2 p-2 w-75">
+
+                        {% include 'feed/review_detail.html' with review=post %}
+
+                    </div>
 
                 {% endif %}
-
-            </div>
 
         {% endfor %}
 

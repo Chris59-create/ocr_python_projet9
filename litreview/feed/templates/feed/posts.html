@@ -4,17 +4,20 @@
 
     <h1 class="text-center">Mes publications</h1>
 
-        <div>
+        <div class="d-flex flex-column">
+
         {% for post in posts %}
+
             {% if post.content_type == 'TICKET' %}
 
-                <div class="border border-dark mt-2 p-2">
+                <div class="align-self-end border border-dark mt-2 p-2 w-75">
 
                     {% include 'feed/ticket_detail.html' with ticket=post %}
 
                     <div class="text-end">
 
                         {% include 'feed/review_check.html' with post=post %}
+
                         <a class="btn btn-outline-dark" href="{% url 'feed:ticket-update' ticket_id=post.id %}">Modifier</a>
                         <a class="btn btn-outline-dark" href="{% url 'feed:ticket-delete' ticket_id=post.id %}">Supprimer</a>
 
@@ -24,7 +27,7 @@
             
             {% elif post.content_type == 'REVIEW' %}
 
-                <div class="border border-dark mt-2 p-2">
+                <div class="border border-dark mt-2 p-2 w-75">
 
                     {% include 'feed/review_detail.html' with review=post %}
 
@@ -36,7 +39,6 @@
                             Supprimer</a>
 
                     </div>
-
 
                 </div>
 
