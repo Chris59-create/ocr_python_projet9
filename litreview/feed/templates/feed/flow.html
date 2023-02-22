@@ -23,7 +23,7 @@
                 {% if post.content_type == 'TICKET' %}
 
                     <div
-                            class="align-self-end border border-dark mt-2 p-2 w-75">
+                            class="align-self-start border border-dark mt-2 p-2 w-75">
 
                         {% include 'feed/ticket_detail.html' with ticket=post %}
 
@@ -37,7 +37,8 @@
 
                 {% elif post.content_type == 'REVIEW' %}
 
-                    <div class="border border-dark mt-2 p-2 w-75">
+                    <div
+                            class="align-self-end border border-dark mt-2 p-2 w-75">
 
                         {% include 'feed/review_detail.html' with review=post %}
 
