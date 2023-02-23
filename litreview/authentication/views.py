@@ -11,25 +11,31 @@ from . import forms
 
 def login_page(request):
 
-    form = forms.LoginForm()
-    message = ""
+    if request.user.is_authenticated:
 
-    if request.method == "POST":
-        form = forms.LoginForm(request.POST)
+        return redirect("feed:my-flow")
 
-        if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data["username"],
-                password=form.cleaned_data["password"]
-            )
+    else:
 
-            if user is not None:
-                login(request, user)
-                return redirect("feed:my-flow")
+        form = forms.LoginForm()
+        message = ""
 
-            else:
-                message = "Identifiant ou mot de passe invalides !"
-                form = forms.LoginForm()
+        if request.method == "POST":
+            form = forms.LoginForm(request.POST)
+
+            if form.is_valid():
+                user = authenticate(
+                    username=form.cleaned_data["username"],
+                    password=form.cleaned_data["password"]
+                )
+
+                if user is not None:
+                    login(request, user)
+                    return redirect("feed:my-flow")
+
+                else:
+                    message = "Identifiant ou mot de passe invalides !"
+                    form = forms.LoginForm()
 
     return render(
         request,
