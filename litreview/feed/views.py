@@ -134,6 +134,8 @@ def create_review_directly(request):
             review.user = request.user
             review.save()
 
+            return redirect('feed:my-flow')
+
     context = {
         'edit_ticket_form': edit_ticket_form,
         'edit_review_form': edit_review_form
