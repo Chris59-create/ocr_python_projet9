@@ -1,4 +1,6 @@
 from django import forms
+from .widgets import RatingWidget
+
 
 from . import models
 
@@ -11,6 +13,20 @@ class EditTicketForm(forms.ModelForm):
 
 
 class EditReviewForm(forms.ModelForm):
+
+    RATING_CHOICES = (
+        ("1", 1),
+        ("2", 2),
+        ("3", 3),
+        ("4", 4),
+        ("5", 5),
+    )
+
+    rating = forms.ChoiceField(
+        label='Note',
+        choices=RATING_CHOICES,
+        widget=RatingWidget
+    )
 
     class Meta:
         model = models.Review
