@@ -1,12 +1,14 @@
-.stars input {
-    display: none;
-    }
-
 .stars {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: center;
     border: 0;
 }
+
+.stars > input {
+    display: none;
+    }
+
 
 .stars label:before{
     font-size : 1.5rem;
