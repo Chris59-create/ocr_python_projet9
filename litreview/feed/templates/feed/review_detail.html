@@ -15,7 +15,21 @@
 
         </div>
 
-            <p class="text-center">{{ review.rating }}</p>
+    <div class="rating-star mb-3">
+
+            <i class="fa fa-2x fa-star{% if review.rating < 1 %}-o{% endif %}"
+               aria-hidden="true"></i>
+            <i class="fa fa-2x fa-star{% if review.rating < 2 %}-o{% endif %}"
+               aria-hidden="true"></i>
+            <i class="fa fa-2x fa-star{% if review.rating < 3 %}-o{% endif %}"
+               aria-hidden="true"></i>
+            <i class="fa fa-2x fa-star{% if review.rating < 4 %}-o{% endif %}"
+               aria-hidden="true"></i>
+            <i class="fa fa-2x fa-star{% if review.rating < 5 %}-o{% endif %}"
+               aria-hidden="true"></i>
+
+    </div>
+
             <p>{{ review.body }}</p>
 
             <div class="border border-dark">

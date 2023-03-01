@@ -23,7 +23,7 @@ class EditReviewForm(forms.ModelForm):
     )
 
     rating = forms.ChoiceField(
-        label='Note',
+        label='',
         choices=RATING_CHOICES,
         widget=RatingWidget
     )
