@@ -3,11 +3,15 @@
 
 {% block content %}
 
-    <h1 text="text-center">Modifier votre critique </h1>
+    <h1 class="text-center">Modifier votre critique </h1>
 
     <p>Vous êtes en train de publier une réponse à :</p>
 
+    <div class="align-self-end border border-dark mt-2 p-2">
+
        {% include 'feed/ticket_detail.html' with ticket=ticket %}
+
+    </div>
 
     <form action="" method="post">
 

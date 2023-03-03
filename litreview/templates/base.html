@@ -16,17 +16,18 @@
         <nav class="bg_light">
             <div class="container">
                 <div class="row border border-dark py-2">
-                    <div class="col-5 align-self-center">
+                    <div class="col-5 d-flex align-items-center">
                         {% if user.is_authenticated %}
                             <p>Bonjour {{ user.username }}</p>
                         {% endif %}
                     </div>
-                    <div class="col-2">
-                        <p>LITReview</p>
+                    <div class="col-2 d-flex justify-content-center">
+                        <h1>LITReview</h1>
                     </div>
-                    <div class="col-5">
+                    <div
+                            class="col-5 d-flex justify-content-around align-items-center">
                         {% if user.is_authenticated %}
-                            <a href="{% url 'feed:my-flow' %}" class="link-primary">Mon flux</a>
+                            <a href="{% url 'feed:my-flow' %}">Mon flux</a>
                             <a href="{% url 'feed:my-posts' %}">Mes posts</a>
                             <a href="{% url 'authentication:follows' %}">Mes abonnements</a>
                             <a href="{% url 'authentication:logout' %}">Se déconnecter</a>

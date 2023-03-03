@@ -22,7 +22,5 @@ input:checked ~ label, label:hover ~ label {
 }
 
 .rating-star {
-    display: flex;
-    justify-content: center;
     color: #ffb503;
 }

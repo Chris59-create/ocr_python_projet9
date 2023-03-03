@@ -158,7 +158,7 @@ def update_review(request, review_id):
     ticket = review.ticket
     
     form = EditReviewForm(instance=review)
-    
+
     if request.method == 'POST':
         form = EditReviewForm(request.POST, instance=review)
 
@@ -166,7 +166,7 @@ def update_review(request, review_id):
 
             form.save()
 
-        return redirect('feed:my-flow')
+        return redirect('feed:my-posts')
 
     context = {'form': form, 'ticket': ticket}
 
