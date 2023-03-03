@@ -13,14 +13,20 @@
 
     </div>
 
+    <h3 class="text-center">{{ ticket.title }}</h3>
 
-    <h3>{{ ticket.title }}</h3>
-    <p>
-        {% if ticket.image %}
+    <div class="row">
+
+        <div class="col-1 d-flex align-items-center">
+            {% if ticket.image %}
             <img src="{{ ticket.image.url }}">
         {% endif %}
-        {{ ticket.description }}
-    </p>
+        </div>
+        <div class="col-11 ps-5 d-flex align-items-center">
+             {{ ticket.description }}
+        </div>
+
+    </div>
 
 </div>
 

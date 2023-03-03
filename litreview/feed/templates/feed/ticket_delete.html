@@ -5,15 +5,14 @@
     <h1 class="text-center">Supprimer le ticket</h1>
 
     <p>Êtes-vous certain de vouloir supprimer le ticket suivant ? </p>
-    <p>
-        {{ ticket.title }}
-        publié le {{ ticket.time_created }}
+    <p class="text-center">
+        {{ ticket.title }} publié le {{ ticket.time_created }}
     </p>
 
     <form action="" method="post">
 
         {% csrf_token %}
-        <div class="text-content">
+        <div class="text-center">
             <input type="submit" value="Supprimer" class="btn btn-outline-dark">
         </div>
 

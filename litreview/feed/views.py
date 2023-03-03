@@ -70,6 +70,7 @@ def update_ticket(request, ticket_id):
         form = EditTicketForm(request.POST, request.FILES, instance=ticket)
 
         if form.is_valid():
+
             form.save()
 
             return redirect('feed:my-posts')
@@ -163,7 +164,7 @@ def update_review(request, review_id):
 
         if form.is_valid():
 
-            review.save()
+            form.save()
 
         return redirect('feed:my-flow')
 
