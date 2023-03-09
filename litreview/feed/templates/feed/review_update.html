@@ -13,14 +13,18 @@
 
     </div>
 
+<p>{{ review_rating }}</p>
+
     <form action="" method="post">
 
         {% csrf_token %}
         {{ form|crispy }}
+
         <div class="text-center">
             <input type="submit" value="Envoyer" class="btn btn-outline-dark">
         </div>
 
     </form>
+
 
 {% endblock content %}

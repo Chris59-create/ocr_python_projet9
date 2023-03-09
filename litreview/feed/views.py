@@ -156,6 +156,8 @@ def display_review(request, review_id):
 def update_review(request, review_id):
     review = Review.objects.get(id=review_id)
     ticket = review.ticket
+
+    review_rating = review.rating
     
     form = EditReviewForm(instance=review)
 
@@ -168,7 +170,7 @@ def update_review(request, review_id):
 
         return redirect('feed:my-posts')
 
-    context = {'form': form, 'ticket': ticket}
+    context = {'review_rating': review_rating, 'form': form, 'ticket': ticket}
 
     return render(request, 'feed/review_update.html', context=context)
 
