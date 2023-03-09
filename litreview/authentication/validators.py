@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 
 
 class ContainsLetterValidator:
+
     def validate(self, password, user=None):
         if not any(char.isalpha() for char in password):
             raise ValidationError(
@@ -15,6 +16,7 @@ class ContainsLetterValidator:
 
 
 class ContainsNumberValidator:
+
     def validate(self, password, user=None):
         if not any(char.isdigit() for char in password):
             raise ValidationError(
@@ -29,7 +31,7 @@ class ContainsNumberValidator:
 class ContainsSpecialValidator:
 
     def validate(self, password, user=None):
-        if not any(not char.isalnum() for  char in password):
+        if not any(not char.isalnum() for char in password):
             raise ValidationError("Le mot de passe doit contenir un "
                                   "caractère spécial",
                                   code='password_no_special'

@@ -1,15 +1,18 @@
+/* css for the rating stars*/
+
+/* manage the position of the radios button */
 .stars {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     border: 0;
 }
-
+/* Hide the radios buttons */
 .stars > input {
     display: none;
     }
 
-
+/* Display the stars */
 .stars label:before{
     font-size : 2rem;
     font-family: FontAwesome;
@@ -17,10 +20,12 @@
     cursor: pointer;
 }
 
+/* Fill the stars checked and hovered */
 input:checked ~ label, label:hover ~ label {
     color: #ffb503;
 }
 
+/* Fill the stars in the review_detail template */
 .rating-star {
     color: #ffb503;
 }

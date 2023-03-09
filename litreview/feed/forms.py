@@ -13,6 +13,10 @@ class EditTicketForm(forms.ModelForm):
 
 
 class EditReviewForm(forms.ModelForm):
+    """
+    Implement a form choicefield rating with a customized widget RatingWidget
+    which associated template will transform the radio buttons in stars.
+    """
 
     RATING_CHOICES = (
         ("1", 1),

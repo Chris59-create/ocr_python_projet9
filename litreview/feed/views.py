@@ -1,6 +1,5 @@
 from itertools import chain
 
-from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models import CharField, Value, Q
@@ -10,6 +9,12 @@ from .forms import EditTicketForm, EditReviewForm
 
 
 def get_users_viewable_tickets(user):
+    """
+    Called by flow().
+    :param user: the request user.
+    :return: list of the tickets created by the  user and the members he
+    follows.
+    """
     viewable_tickets = Ticket.objects.filter(
         Q(user=user) | Q(user__in=user.followed_members.all())
     )
@@ -18,6 +23,11 @@ def get_users_viewable_tickets(user):
 
 
 def get_users_viewable_reviews(user):
+    """
+    Called by flow().
+    :param user: the request user.
+    :return: List of te reviews created by the user and the members he follows.
+    """
     viewable_reviews = Review.objects.filter(
         Q(user=user) | Q(user__in=user.followed_members.all())
     )
@@ -27,6 +37,10 @@ def get_users_viewable_reviews(user):
 
 @login_required
 def flow(request):
+    """
+    Render the page flow.html with the tickets and reviews viewable by the
+    request user. From the newest to the oldest.
+    """
 
     tickets = get_users_viewable_tickets(request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
@@ -45,6 +59,9 @@ def flow(request):
 
 @login_required
 def create_ticket(request):
+    """
+    Render the EditTicketForm to create a ticket
+    """
     form = EditTicketForm()
 
     if request.method == 'POST':
@@ -63,6 +80,9 @@ def create_ticket(request):
 
 @login_required
 def update_ticket(request, ticket_id):
+    """
+    Render the EditTicketForm with a ticket instance to create a ticket
+    """
     ticket = Ticket.objects.get(id=ticket_id)
     form = EditTicketForm(instance=ticket)
 
@@ -92,6 +112,10 @@ def delete_ticket(request, ticket_id):
 
 @login_required
 def create_review(request, ticket_id):
+    """
+    Render the EditReviewForm to create a review.
+    :param ticket_id: id of the ticket source of the review to create
+    """
     ticket = Ticket.objects.get(id=ticket_id)
     
     form = EditReviewForm()
@@ -115,6 +139,10 @@ def create_review(request, ticket_id):
 
 @login_required
 def create_review_directly(request):
+    """
+    Render the EditTicketForm and The EditReviewForm to create directly a
+    ticket (without previous ticket).
+    """
     edit_ticket_form = EditTicketForm()
     edit_review_form = EditReviewForm()
 
@@ -154,6 +182,10 @@ def display_review(request, review_id):
 
 @login_required
 def update_review(request, review_id):
+    """
+    Render the EditReviewForm with a review instance to update it.
+    :param review_id: id of the review to update
+    """
     review = Review.objects.get(id=review_id)
     ticket = review.ticket
 
@@ -189,7 +221,10 @@ def delete_review(request, review_id):
 
 @login_required
 def display_my_posts(request):
-
+    """
+    Render the page posts.html with the tickets and reviews created by the
+    request user. From the newest to the oldest.
+    """
     tickets = Ticket.objects.filter(user=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 

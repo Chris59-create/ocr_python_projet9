@@ -5,11 +5,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
 
-
 from . import forms
 
 
 def login_page(request):
+    """
+    Render the login page with the LoginForm and manage the message if input
+    errors.
+    """
 
     if request.user.is_authenticated:
 
@@ -53,6 +56,9 @@ def logout_view(request):
 
 
 def signup_page(request):
+    """
+    Render the "signup" template with the SignupForm
+    """
 
     form = forms.SignupForm()
 
@@ -72,6 +78,12 @@ def signup_page(request):
 
 @login_required
 def follows(request):
+    """
+    Render the "follows" template.
+    Use of the AddFollowedForm to register a followed member.
+    Render the list of followed members.
+    Render the list of followers.
+    """
 
     add_followed_form = forms.AddFollowedForm()
 

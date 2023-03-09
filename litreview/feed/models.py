@@ -1,4 +1,3 @@
-from django.core.validators import MaxValueValidator
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -35,6 +34,7 @@ class Ticket(models.Model):
 class Review(models.Model):
     objects = models.Manager()
 
+    # OneToOneField because one review for one ticket
     ticket = models.OneToOneField(
         Ticket,
         on_delete=models.CASCADE,

@@ -4,6 +4,9 @@ from django.utils.safestring import mark_safe
 
 
 class RatingWidget(forms.Widget):
+    """
+    Custom widget associated to a choicefield to render a stars-rating.
+    """
     template_name = 'feed/rating.html'
 
     def get_context(self, name, value, attrs=None, renderer=None):
@@ -20,4 +23,3 @@ class RatingWidget(forms.Widget):
         template = loader.get_template(self.template_name).render(context)
 
         return mark_safe(template)
-
