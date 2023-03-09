@@ -9,10 +9,13 @@ A django project written as **study case** to be evaluated for validation of the
 [Python](https://www.python.org/), 
 [PIP](https://pypi.org/project/pip/), 
 [GIT](https://git-scm.com/).
-- [ ] Create locally directory for the projet and/navigate to it. 
+- [ ] Create locally a directory or navigate to directory where you want to 
+  store the project. 
 - [ ] Clone the github project repository in this directory:
 
     ```git clone https://github.com/Chris59-create/ocr_python_projet9.git```
+
+- [ ] Navigate to the projet subdirectory `cd ocr_python_projet9`.
       
 - [ ] Create and activate a virtual environment in this directory.
 
@@ -22,6 +25,8 @@ A django project written as **study case** to be evaluated for validation of the
 - [ ] Install the python packages needed for the project:
 
    ```pip install -r requirements.txt```
+
+- [ ] Navigate to the subdirectory `cd litreview`.
 
 - [ ] Migrate the database:
 
