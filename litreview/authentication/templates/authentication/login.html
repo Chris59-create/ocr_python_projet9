@@ -1,9 +1,13 @@
+<!-- In this page, the user can log in or if not already member navigate to
+the page to signup -->
+
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
     <div class="row d-flex align-items-center">
+
         <div class="col-6 text-center">
             <h2>Pas encore membre ?</h2>
             <p>
@@ -11,16 +15,17 @@
                    href="{% url 'authentication:signup' %}">S'inscrire !</a>
             </p>
         </div>
+
         <div class="col-6 text-center">
             <h2>Connectez-vous</h2>
 
             <form method="post">
 
-
                 {{ form|crispy }}
                 {% csrf_token %}
                 <p class="bg-dark text-white text-center">{{ message }}</p>
                 <button type="submit" class="btn btn-outline-dark">Se connecter</button>
+
             </form>
         </div>
 

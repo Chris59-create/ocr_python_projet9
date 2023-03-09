@@ -1,3 +1,7 @@
+<!-- Include : allows to create a review or not depending on whether the
+ticket has already a review or not. If already a review, button to display it.
+ -->
+
 {% if not post.ticket_review %}
 
     <a class="btn btn-outline-dark" href="{% url 'feed:review-create' ticket_id=post.id %}">Créer une critique</a>
