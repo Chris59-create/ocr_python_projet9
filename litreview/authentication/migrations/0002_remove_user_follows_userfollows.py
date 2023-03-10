@@ -42,6 +42,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"unique_together": {("user", "followed_user")},},
+            options={"unique_together": {("user", "followed_user")}, },
         ),
     ]

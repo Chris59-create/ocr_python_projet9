@@ -117,7 +117,7 @@ def create_review(request, ticket_id):
     :param ticket_id: id of the ticket source of the review to create
     """
     ticket = Ticket.objects.get(id=ticket_id)
-    
+
     form = EditReviewForm()
 
     if request.method == 'POST':
@@ -190,7 +190,7 @@ def update_review(request, review_id):
     ticket = review.ticket
 
     review_rating = review.rating
-    
+
     form = EditReviewForm(instance=review)
 
     if request.method == 'POST':
@@ -206,7 +206,7 @@ def update_review(request, review_id):
 
     return render(request, 'feed/review_update.html', context=context)
 
-        
+
 @login_required
 def delete_review(request, review_id):
     review = Review.objects.get(id=review_id)
@@ -217,7 +217,7 @@ def delete_review(request, review_id):
         return redirect('feed:my-posts')
 
     return render(request, 'feed/review_delete.html', {'review': review})
-    
+
 
 @login_required
 def display_my_posts(request):
